@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "npx eslint-config-prettier src/*.js --ext"
+    "lint": "npx eslint-config-prettier src/*.js --ext",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -39,11 +40,6 @@
     "husky": "^7.0.4",
     "lint-staged": "^12.0.3",
     "prettier": "^2.4.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "*.{js,json,md}": [

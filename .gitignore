@@ -1,0 +1,5 @@
+# 忽略模块依赖包
+*/node_modules
+
+# 忽略idea
+*.idea/
