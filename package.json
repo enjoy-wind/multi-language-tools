@@ -1,0 +1,54 @@
+{
+  "name": "multi-lanuage",
+  "version": "1.0.0",
+  "description": "function, performance, experience one-stop multi-language script.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npx eslint-config-prettier src/*.js --ext"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enjoy-wind/multi-language.git"
+  },
+  "keywords": [
+    "multi-language",
+    "javascript",
+    "tool"
+  ],
+  "author": "enjoy-wind",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/enjoy-wind/multi-language/issues"
+  },
+  "homepage": "https://github.com/enjoy-wind/multi-language#readme",
+  "engines": {
+    "node": ">=12.22.0"
+  },
+  "dependencies": {
+    "file-system": "^2.2.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/eslint-parser": "^7.16.3",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.2.0",
+    "eslint-config-alloy": "^4.4.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.0.3",
+    "prettier": "^2.4.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
