@@ -27,3 +27,4 @@ const createEnum = (definition) => {
     },
   };
 };
+export { createEnum };

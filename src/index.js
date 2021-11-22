@@ -2,20 +2,21 @@
 /*
   Copyright Enjoy Wind and other contributors, https://github.com/enjoy-wind
  */
+import { combineConfig } from "./config/index.js";
 
-/*
- * @params entryPath 入口路径
- * @params frameType  react || vue
- * @params importModuleCodeStr 多语言模块引入的代码
- * @params commonKeyPath 通用Key位置
- * @params googleTranslation google翻译
- * */
-function perform({
-  entryPath,
-  frameType,
-  importModuleCodeStr,
-  commonKeyPath,
-  googleTranslation,
-}) {}
+const start = () => {
+  init().then((res) => {});
+};
 
-export { perform };
+const init = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const { version } = combineConfig;
+      console.log(`init load finish version:${version}.`);
+      resolve(true);
+    }, 10);
+  });
+};
+start();
+
+export { start };
