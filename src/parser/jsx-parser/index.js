@@ -70,8 +70,49 @@ const JSXParser = /** @class */ (function (_super) {
   __extends(JSXParser, _super);
 
   function JSXParser(code, options, delegate) {
-    return _super.call(this, code, options, delegate) || this;
+    let option = {
+      loc: true,
+      range: true,
+      sourceType: "module",
+      strictMode: false,
+      allowImportExportEverywhere: true,
+      allowReturnOutsideFunction: true,
+      startLine: 1,
+      tokens: true,
+      plugins: [
+        "asyncGenerators",
+        "bigInt",
+        "classPrivateMethods",
+        "classPrivateProperties",
+        "classProperties",
+        "decorators-legacy",
+        "doExpressions",
+        "dynamicImport",
+        "exportDefaultFrom",
+        "exportExtensions",
+        "exportNamespaceFrom",
+        "functionBind",
+        "functionSent",
+        "importMeta",
+        "nullishCoalescingOperator",
+        "numericSeparator",
+        "objectRestSpread",
+        "optionalCatchBinding",
+        "optionalChaining",
+        ["pipelineOperator", { proposal: "minimal" }],
+        "throwExpressions",
+        "jsx",
+        "flow",
+      ],
+    };
+    return (
+      _super.call(this, code, Object.assign(option, options), delegate) || this
+    );
   }
+
+  JSXParser.prototype.parseReact = function () {
+    this.parseScript();
+  };
 
   JSXParser.prototype.parsePrimaryExpression = function () {
     return this.match("<")
@@ -155,8 +196,8 @@ const JSXParser = /** @class */ (function (_super) {
         result = String.fromCharCode(parseInt(str.substr(1), 10));
       } else if (hex && str.length > 2) {
         result = String.fromCharCode(parseInt("0" + str.substr(1), 16));
-      } else if (!numeric && !hex && XHTMLEntities.XHTMLEntities[str]) {
-        result = XHTMLEntities.XHTMLEntities[str];
+      } else if (!numeric && !hex && XHTMLEntities[str]) {
+        result = XHTMLEntities[str];
       }
     }
     return result;
@@ -273,7 +314,9 @@ const JSXParser = /** @class */ (function (_super) {
     this.lastMarker.line = this.scanner.lineNumber;
     this.lastMarker.column = this.scanner.index - this.scanner.lineStart;
     if (this.config.tokens) {
-      this.tokens.push(this.convertToken(token));
+      const tokenTmp = this.convertToken(token);
+      this.getTranslationTokens(tokenTmp);
+      this.tokens.push(tokenTmp);
     }
     return token;
   };
@@ -310,7 +353,9 @@ const JSXParser = /** @class */ (function (_super) {
       end: this.scanner.index,
     };
     if (text.length > 0 && this.config.tokens) {
-      this.tokens.push(this.convertToken(token));
+      const tokenTmp = this.convertToken(token);
+      this.getTranslationTokens(tokenTmp);
+      this.tokens.push(tokenTmp);
     }
     return token;
   };
@@ -325,9 +370,6 @@ const JSXParser = /** @class */ (function (_super) {
   // If not, an exception will be thrown.
   JSXParser.prototype.expectJSX = function (value) {
     let token = this.nextJSXToken();
-    if (token.type !== 7 /* Punctuator */ || token.value !== value) {
-      this.throwUnexpectedToken(token);
-    }
   };
   // Return true if the next JSX token matches the specified punctuator.
   JSXParser.prototype.matchJSX = function (value) {
@@ -337,9 +379,6 @@ const JSXParser = /** @class */ (function (_super) {
   JSXParser.prototype.parseJSXIdentifier = function () {
     let node = this.createJSXNode();
     let token = this.nextJSXToken();
-    if (token.type !== 100 /* Identifier */) {
-      this.throwUnexpectedToken(token);
-    }
     return this.finalize(node, new JSXNode.JSXIdentifier(token.value));
   };
   JSXParser.prototype.parseJSXElementName = function () {
@@ -386,9 +425,6 @@ const JSXParser = /** @class */ (function (_super) {
   JSXParser.prototype.parseJSXStringLiteralAttribute = function () {
     let node = this.createJSXNode();
     let token = this.nextJSXToken();
-    if (token.type !== 8 /* StringLiteral */) {
-      this.throwUnexpectedToken(token);
-    }
     let raw = this.getTokenRaw(token);
     return this.finalize(node, new Node.Literal(token.value, raw));
   };
@@ -397,9 +433,6 @@ const JSXParser = /** @class */ (function (_super) {
     this.expectJSX("{");
     this.finishJSX();
     if (this.match("}")) {
-      this.tolerateError(
-        "JSX attributes must only be assigned a non-empty expression"
-      );
     }
     let expression = this.parseAssignmentExpression();
     this.reenterJSX();
@@ -550,10 +583,6 @@ const JSXParser = /** @class */ (function (_super) {
         let open_1 = getQualifiedElementName(el.opening.name);
         let close_1 = getQualifiedElementName(el.closing.name);
         if (open_1 !== close_1) {
-          this.tolerateError(
-            "Expected corresponding JSX closing tag for %0",
-            open_1
-          );
         }
         if (stack.length > 0) {
           let child = this.finalize(
@@ -570,9 +599,6 @@ const JSXParser = /** @class */ (function (_super) {
       if (element.type === JSXSyntax.JSXClosingFragment) {
         el.closing = element;
         if (el.opening.type !== JSXSyntax.JSXOpeningFragment) {
-          this.tolerateError(
-            "Expected corresponding JSX closing tag for jsx fragment"
-          );
         } else {
           break;
         }

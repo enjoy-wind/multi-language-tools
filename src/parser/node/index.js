@@ -107,7 +107,7 @@ Node.AwaitExpression = /** @class */ (function () {
 
 Node.BinaryExpression = /** @class */ (function () {
   function BinaryExpression(operator, left, right) {
-    Node.logical = operator === "||" || operator === "&&" || operator === "??";
+    const logical = operator === "||" || operator === "&&" || operator === "??";
     this.type = logical ? Syntax.LogicalExpression : Syntax.BinaryExpression;
     this.operator = operator;
     this.left = left;

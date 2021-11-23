@@ -27,4 +27,16 @@ const createEnum = (definition) => {
     },
   };
 };
-export { createEnum };
+/*
+ * 检查中文
+ * @params str
+ * @return true 中文 || false 不包含中文
+ * */
+const checkChinese = (str) => {
+  if (escape(str).indexOf("%u") < 0) {
+    return false;
+  } else {
+    return true;
+  }
+};
+export { createEnum, checkChinese };
