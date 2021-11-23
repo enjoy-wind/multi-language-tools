@@ -4,6 +4,7 @@ export default {
   frameType: "react", //小写
   importModuleCodeStr: "",
   commonKeyPath: "",
+  transFnStr: "this.messages('$KeyPlaceholder')/*$NotePlaceholder*/",
   googleTranslation: false,
   supportLanguages: ["en"] /*支持的语言*/,
 };

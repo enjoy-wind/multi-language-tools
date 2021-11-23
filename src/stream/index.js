@@ -36,5 +36,29 @@ const readFileSync = (filePath) => {
   const content = fs.readFileSync(filePath, EncodingFormat);
   return content;
 };
+/*
+ * 同步读取文件行数
+ * */
+const readFileSyncToLines = (filePath) => {
+  const content = readFileSync(filePath);
+  const lines = content.split(/\r?\n/);
+  return lines;
+};
+/*
+ * 同步写入文件 Array || string
+ * */
+const writeFileSync = (filePath, contents) => {
+  if (Array.isArray(contents)) {
+    contents = contents.join("\n");
+  }
+  try {
+    fs.writeFileSync(filePath, contents, { flag: "w+" });
+    //文件写入成功。
+  } catch (err) {
+    return false;
+    console.error(err);
+  }
+  return true;
+};
 
 export { getChildFilesPath, readFileSync };

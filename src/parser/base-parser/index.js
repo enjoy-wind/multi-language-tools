@@ -3299,7 +3299,10 @@ const Parser = /** @class */ (function () {
     this.validateError();
     const { fileName } = this.config;
     this.transTokens.forEach((item) => {
+      const { loc } = item;
       item.fileName = fileName;
+      item.line = loc.start.line;
+      delete item.loc;
     });
     return this.finalize(node, new Node.Script(body));
   };
