@@ -39,4 +39,16 @@ const checkChinese = (str) => {
     return true;
   }
 };
-export { createEnum, checkChinese };
+/*
+ * 移除首位相同字符
+ * */
+const moveLeftAndRightChar = (str, removeChar) => {
+  if (str) {
+    const strLen = str.length;
+    if (str.charAt(0) === removeChar && str.charAt(strLen - 1) === removeChar) {
+      return str.substr(1, strLen - 2);
+    }
+  }
+  return str;
+};
+export { createEnum, checkChinese, moveLeftAndRightChar };

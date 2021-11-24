@@ -3298,10 +3298,27 @@ const Parser = /** @class */ (function () {
     }
     this.validateError();
     const { fileName } = this.config;
-    this.transTokens.forEach((item) => {
-      const { loc } = item;
+    this.transTokens.forEach((item, index) => {
+      const { type, value, loc } = item;
       item.fileName = fileName;
       item.line = loc.start.line;
+      if (type === TokenName[TokenType.Template]) {
+        const placeHolders = [...value.matchAll(/\${.*?}/g)];
+        let transValue = value;
+        let placeHolderVars = [];
+        placeHolders.forEach((placeHolder, index) => {
+          const placeHolderVar = placeHolder[0];
+          placeHolderVars.push(
+            placeHolderVar.replace("${", "").replace("}", "")
+          );
+          transValue = transValue.replace(placeHolderVar, `{arg${index + 1}}`);
+        });
+        item.transValue = transValue;
+        item.placeHolderVars = placeHolderVars;
+      } else {
+        item.transValue = item.value;
+      }
+      item.index = index;
       delete item.loc;
     });
     return this.finalize(node, new Node.Script(body));

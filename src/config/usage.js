@@ -3,8 +3,10 @@ export default {
   entryPath: "",
   frameType: "react", //小写
   importModuleCodeStr: "",
-  commonKeyPath: "",
-  transFnStr: "this.messages('$KeyPlaceholder')/*$NotePlaceholder*/",
+  commonKeyPath:
+    "/Users/ylhong/Desktop/project/study/multi-language/test/generator/common.json",
+  transFnStr:
+    "this.messages($KeyPlaceholder$ArgPlaceholder)/*$NotePlaceholder*/",
   googleTranslation: false,
   supportLanguages: ["en"] /*支持的语言*/,
 };

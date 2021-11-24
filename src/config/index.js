@@ -5,6 +5,11 @@ import glob from "glob";
 import path from "path";
 import { FILE_TYPE } from "../stream/enum/index.js";
 
+const runPath = path.resolve("");
+const projectName = "multi-language";
+const configPath =
+  runPath.split(projectName)[0] + projectName + "/src/config/*.js";
+
 let combineConfig = {};
 const load = (moduleName) => {
   moduleName = path.resolve(moduleName);
@@ -12,12 +17,12 @@ const load = (moduleName) => {
   return import(moduleName);
 };
 let moduleList = [];
-glob.sync(path.join("./config/*.js")).forEach((filePath) => {
+glob.sync(configPath).forEach((filePath) => {
   const fileExtension = filePath.split(".").pop().toLowerCase();
-  console.log(filePath);
+  let fileName = filePath.split("/").pop();
   if (FILE_TYPE.JS === fileExtension) {
-    const currentFileName = "config/index.js";
-    if (currentFileName != filePath) {
+    const currentFileName = "index.js";
+    if (currentFileName != fileName) {
       const _load = load(filePath);
       moduleList.push(_load);
     }
