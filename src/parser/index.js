@@ -1,4 +1,4 @@
-//https://github.com/jquery/esprima
+//Copyright JS Foundation and other contributors, https://js.foundation/
 import JSXParser from "./jsx-parser/index.js";
 
 const parse = (code, fileName) => {
