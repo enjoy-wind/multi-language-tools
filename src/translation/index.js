@@ -62,7 +62,8 @@ GoogleTranslator.prototype.translateBatch = function (textList, from, to) {
         }
 
         if (!Array.isArray(resp)) {
-          throw new Error("Unexpected response");
+          //throw new Error("Unexpected response");
+          return [];
         }
 
         let result = [];
