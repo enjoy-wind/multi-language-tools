@@ -253,7 +253,10 @@ const Parser = /** @class */ (function () {
       return null;
     }
     /*template是闭合开关*/
-    if (TokenName[TokenType.Template] === type) {
+    if (
+      TokenName[TokenType.Template] === type &&
+      (starTemplate || endTemplate)
+    ) {
       this.templateRuning = !this.templateRuning;
     }
     if (this.templateRuning) {
@@ -479,6 +482,9 @@ const Parser = /** @class */ (function () {
     this.context.isBindingElement = true;
     this.context.isAssignmentTarget = true;
     this.context.firstCoverInitializedNameError = null;
+    if (this.lookahead && this.lookahead.value === "=>") {
+      this.nextToken();
+    }
     let result = parseFunction.call(this);
     this.context.isBindingElement = previousIsBindingElement;
     this.context.isAssignmentTarget = previousIsAssignmentTarget;
@@ -813,6 +819,9 @@ const Parser = /** @class */ (function () {
         this.nextToken();
         value = this.inheritCoverGrammar(this.parseAssignmentExpression);
       } else if (this.match("(")) {
+        if (this.match("=")) {
+          this.nextToken();
+        }
         value = isAsync
           ? this.parsePropertyMethodAsyncFunction(isGenerator)
           : this.parsePropertyMethodFunction(isGenerator);
@@ -859,8 +868,11 @@ const Parser = /** @class */ (function () {
   Parser.prototype.parseTemplateHead = function (options) {
     let node = this.createNode();
     let token = this.nextToken();
+    if (!token) {
+      token = this.nextToken();
+    }
     if (!options.isTagged && token.notEscapeSequenceHead !== null) {
-      this.throwTemplateLiteralEarlyErrors(token);
+      //this.throwTemplateLiteralEarlyErrors(token);
     }
     let raw = token.value;
     let cooked = token.cooked;
@@ -875,7 +887,7 @@ const Parser = /** @class */ (function () {
     let node = this.createNode();
     let token = this.nextToken();
     if (!options.isTagged && token.notEscapeSequenceHead !== null) {
-      this.throwTemplateLiteralEarlyErrors(token);
+      //this.throwTemplateLiteralEarlyErrors(token);
     }
     let raw = token.value;
     let cooked = token.cooked;
@@ -2153,7 +2165,6 @@ const Parser = /** @class */ (function () {
   Parser.prototype.parseDoWhileStatement = function () {
     let node = this.createNode();
     this.expectKeyword("do");
-    this.tolerateInvalidLoopStatement();
     let previousInIteration = this.context.inIteration;
     this.context.inIteration = true;
     let body = this.parseStatement();
@@ -2373,7 +2384,6 @@ const Parser = /** @class */ (function () {
       body = this.finalize(this.createNode(), new Node.EmptyStatement());
     } else {
       this.expect(")");
-      this.tolerateInvalidLoopStatement();
       let previousInIteration = this.context.inIteration;
       this.context.inIteration = true;
       body = this.isolateCoverGrammar(this.parseStatement);
@@ -2769,21 +2779,26 @@ const Parser = /** @class */ (function () {
       params: [],
       firstRestricted: firstRestricted,
     };
-    this.expect("(");
-    if (!this.match(")")) {
+    if (!["(", ")"].includes(this.lookahead.value)) {
       options.paramSet = {};
-      while (this.lookahead.type !== 2 /* EOF */) {
-        this.parseFormalParameter(options);
-        if (this.match(")")) {
-          break;
-        }
-        this.expect(",");
-        if (this.match(")")) {
-          break;
+      this.parseFormalParameter(options);
+    } else {
+      this.expect("(");
+      if (!this.match(")")) {
+        options.paramSet = {};
+        while (this.lookahead.type !== 2 /* EOF */) {
+          this.parseFormalParameter(options);
+          if (this.match(")")) {
+            break;
+          }
+          this.expect(",");
+          if (this.match(")")) {
+            break;
+          }
         }
       }
+      this.expect(")");
     }
-    this.expect(")");
     if (options.hasDuplicateParameterNames) {
       if (this.context.strict || this.context.isAsync || !options.simple) {
       }
@@ -3181,7 +3196,10 @@ const Parser = /** @class */ (function () {
       value = this.parseGeneratorMethod();
       method = true;
     }
-    if (!kind && key && this.match("(")) {
+    if ((!kind && key && this.match("(")) || this.match("=")) {
+      if (this.match("=")) {
+        this.nextToken();
+      }
       let previousInClassConstructor = this.context.inClassConstructor;
       this.context.inClassConstructor = token.value === "constructor";
       kind = "init";
