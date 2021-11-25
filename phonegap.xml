@@ -1,0 +1,5 @@
+<application>
+  <component name="PhoneGapSettings">
+    <option name="executablePath" value="/usr/local/bin/ionic" />
+  </component>
+</application>
