@@ -10,9 +10,9 @@ const generator = (transTokens) => {
   assemblyTransTokens(transTokens);
   const { googleTranslation } = combineConfig;
   if (googleTranslation) {
-    translateKey(transTokens).then((res) => {});
+    return translateKey(transTokens);
   }
-  return transTokens;
+  return Promise.resolve(transTokens);
 };
 /*生成Key*/
 const generatorKey = (transTokens) => {
