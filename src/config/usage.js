@@ -7,6 +7,6 @@ export default {
     "/Users/ylhong/Desktop/project/study/multi-language/test/generator/common.json",
   transFnStr:
     "this.messages($KeyPlaceholder$ArgPlaceholder)/*$NotePlaceholder*/",
-  googleTranslation: false,
-  supportLanguages: ["en"] /*支持的语言*/,
+  googleTranslation: true,
+  supportLanguages: ["en", "ja"] /*支持的语言*/,
 };

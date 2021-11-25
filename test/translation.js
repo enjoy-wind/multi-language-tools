@@ -1,6 +1,6 @@
-import { translateBatch } from "../src/translation/index.js";
+import { batchTranslate } from "../src/translation/index.js";
 
-const result = translateBatch(["中国", "东京"], "zh", "ja");
+const result = batchTranslate(["中国", "东京"], "zh", ["ja", "en"]);
 
 result.then((res) => {
   console.log(res);

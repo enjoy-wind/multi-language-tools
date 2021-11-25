@@ -3,10 +3,15 @@ import { readFileSync } from "../stream/index.js";
 import { moveLeftAndRightChar } from "../utils/index.js";
 import { nanoid } from "nanoid";
 import JSXSyntax from "../parser/jsx-parser/enum/jsx-syntax.js";
+import { batchTranslate } from "../translation/index.js";
 
 const generator = (transTokens) => {
   generatorKey(transTokens);
   assemblyTransTokens(transTokens);
+  const { googleTranslation } = combineConfig;
+  if (googleTranslation) {
+    translateKey(transTokens).then((res) => {});
+  }
   return transTokens;
 };
 /*生成Key*/
@@ -21,7 +26,33 @@ const generatorKey = (transTokens) => {
   });
 };
 /*翻译Key*/
-const translateKey = (transTokens) => {};
+const translateKey = (transTokens) => {
+  let transList = [];
+  /*防止重复*/
+  let transIndexes = [];
+  transTokens.forEach((item, index) => {
+    const { isNewAddKey, transValue } = item;
+    if (isNewAddKey) {
+      transList.push(removeIdentifiers(transValue));
+      transIndexes.push(index);
+    }
+  });
+  const { supportLanguages } = combineConfig;
+  return batchTranslate(transList, "zh", supportLanguages).then((res) => {
+    transIndexes.forEach((transIndex) => {
+      const item = transTokens[transIndex];
+      item.transInfo = res[transIndex];
+      const { transValue, transInfo } = item;
+      supportLanguages.forEach((language, index) => {
+        item[`${language}FileAppend`] = item.keyFileAppend.replace(
+          removeIdentifiers(transValue),
+          transInfo[language]
+        );
+      });
+    });
+    return transTokens;
+  });
+};
 /*
  * 组装翻译Token,需要的资源全部生成号
  * */
