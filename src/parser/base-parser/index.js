@@ -2700,7 +2700,12 @@ const Parser = /** @class */ (function () {
   // https://tc39.github.io/ecma262/#sec-function-definitions
   Parser.prototype.parseFunctionSourceElements = function () {
     let node = this.createNode();
-    this.expect("{");
+    const startNextValue = this.informalNextTokens(1)[0].value;
+    if (startNextValue === "(") {
+      this.expect("(");
+    } else {
+      this.expect("{");
+    }
     let body = this.parseDirectivePrologues();
     let previousLabelSet = this.context.labelSet;
     let previousInIteration = this.context.inIteration;
@@ -2711,12 +2716,17 @@ const Parser = /** @class */ (function () {
     this.context.inSwitch = false;
     this.context.inFunctionBody = true;
     while (this.lookahead.type !== 2 /* EOF */) {
-      if (this.match("}")) {
+      if (this.match("}") || this.match(")")) {
         break;
       }
       body.push(this.parseStatementListItem());
     }
-    this.expect("}");
+    const endNextValue = this.informalNextTokens(1)[0].value;
+    if (endNextValue === ")") {
+      this.expect(")");
+    } else {
+      this.expect("}");
+    }
     this.context.labelSet = previousLabelSet;
     this.context.inIteration = previousInIteration;
     this.context.inSwitch = previousInSwitch;
@@ -3121,6 +3131,32 @@ const Parser = /** @class */ (function () {
     }
     return this.finalize(node, new Node.YieldExpression(argument, delegate));
   };
+  Parser.prototype.processScannerStaticInfo = function () {
+    const { index, lineNumber, lineStart, curlyStack } = this.scanner;
+    return {
+      index,
+      lineNumber,
+      lineStart,
+      curlyStack: JSON.parse(JSON.stringify(curlyStack)),
+    };
+  };
+  /*用于判断前置变量的方法.
+   * */
+  Parser.prototype.informalNextTokens = function (number) {
+    const startMarker = JSON.parse(JSON.stringify(this.startMarker));
+    const lastMarker = JSON.parse(JSON.stringify(this.lastMarker));
+    const lookahead = JSON.parse(JSON.stringify(this.lookahead));
+    const currentInfo = this.processScannerStaticInfo();
+    let nextTokens = [];
+    for (let i = 0; i < number; i++) {
+      nextTokens.push(this.nextToken());
+    }
+    Object.assign(this.lookahead, lookahead);
+    Object.assign(this.startMarker, startMarker);
+    Object.assign(this.lastMarker, lastMarker);
+    Object.assign(this.scanner, currentInfo);
+    return nextTokens;
+  };
   // https://tc39.github.io/ecma262/#sec-class-definitions
   Parser.prototype.parseClassElement = function (hasConstructor) {
     let token = this.lookahead;
@@ -3205,16 +3241,29 @@ const Parser = /** @class */ (function () {
     }
     if ((!kind && key && this.match("(")) || this.match("=")) {
       if (this.match("=")) {
-        this.nextToken();
+        const nextTokenTmp = this.informalNextTokens(2);
+        const objStart =
+          TokenType.Punctuator == nextTokenTmp[1].type &&
+          ["{", "["].includes(nextTokenTmp[1].value);
+        if (
+          nextTokenTmp[0].value == "=" &&
+          (TokenType.Punctuator != nextTokenTmp[1].type || objStart)
+        ) {
+          kind = "var";
+        } else {
+          this.nextToken();
+        }
       }
-      let previousInClassConstructor = this.context.inClassConstructor;
-      this.context.inClassConstructor = token.value === "constructor";
-      kind = "init";
-      value = isAsync
-        ? this.parsePropertyMethodAsyncFunction(isGenerator)
-        : this.parsePropertyMethodFunction(isGenerator);
-      this.context.inClassConstructor = previousInClassConstructor;
-      method = true;
+      if (kind != "set") {
+        let previousInClassConstructor = this.context.inClassConstructor;
+        this.context.inClassConstructor = token.value === "constructor";
+        kind = "init";
+        value = isAsync
+          ? this.parsePropertyMethodAsyncFunction(isGenerator)
+          : this.parsePropertyMethodFunction(isGenerator);
+        this.context.inClassConstructor = previousInClassConstructor;
+        method = true;
+      }
     }
     if (kind === "init") {
       kind = "method";
@@ -3231,6 +3280,9 @@ const Parser = /** @class */ (function () {
         }
         kind = "constructor";
       }
+    }
+    if (kind == "var") {
+      return this.parseStatement();
     }
     return this.finalize(
       node,
