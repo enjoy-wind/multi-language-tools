@@ -196,6 +196,7 @@ const Parser = /** @class */ (function () {
       this.getTranslationTokens(token);
       this.tokens.push(token);
     }
+    //console.log(token);
     return token;
   };
   Parser.prototype.getTranslationTokens = function (token) {
@@ -1467,6 +1468,9 @@ const Parser = /** @class */ (function () {
   Parser.prototype.parseExponentiationExpression = function () {
     let startToken = this.lookahead;
     let expr = this.inheritCoverGrammar(this.parseUnaryExpression);
+    if (!expr) {
+      console.log(expr);
+    }
     if (expr.type !== Syntax.UnaryExpression && this.match("**")) {
       this.nextToken();
       this.context.isAssignmentTarget = false;
@@ -2077,7 +2081,7 @@ const Parser = /** @class */ (function () {
         this.scanner.isStrictModeReservedWord(token.value)
       ) {
       } else {
-        if (this.context.strict || token.value !== "let" || kind !== "let") {
+        if (this.context.strict || token.value !== "let" || kind !== "var") {
         }
       }
     }
@@ -2086,7 +2090,7 @@ const Parser = /** @class */ (function () {
   Parser.prototype.parseVariableDeclaration = function (options) {
     let node = this.createNode();
     let params = [];
-    let id = this.parsePattern(params, "let");
+    let id = this.parsePattern(params, "var");
     if (this.context.strict && id.type === Syntax.Identifier) {
       if (this.scanner.isRestrictedWord(id.name)) {
       }
@@ -2112,12 +2116,12 @@ const Parser = /** @class */ (function () {
   };
   Parser.prototype.parseVariableStatement = function () {
     let node = this.createNode();
-    this.expectKeyword("let");
+    this.expectKeyword("var");
     let declarations = this.parseVariableDeclarationList({ inFor: false });
     this.consumeSemicolon();
     return this.finalize(
       node,
-      new Node.VariableDeclaration(declarations, "let")
+      new Node.VariableDeclaration(declarations, "var")
     );
   };
   // https://tc39.github.io/ecma262/#sec-empty-statement
@@ -2220,7 +2224,7 @@ const Parser = /** @class */ (function () {
     if (this.match(";")) {
       this.nextToken();
     } else {
-      if (this.matchKeyword("let")) {
+      if (this.matchKeyword("var")) {
         init = this.createNode();
         this.nextToken();
         let previousAllowIn = this.context.allowIn;
@@ -2238,7 +2242,7 @@ const Parser = /** @class */ (function () {
           }
           init = this.finalize(
             init,
-            new Node.VariableDeclaration(declarations, "let")
+            new Node.VariableDeclaration(declarations, "var")
           );
           this.nextToken();
           left = init;
@@ -2251,7 +2255,7 @@ const Parser = /** @class */ (function () {
         ) {
           init = this.finalize(
             init,
-            new Node.VariableDeclaration(declarations, "let")
+            new Node.VariableDeclaration(declarations, "var")
           );
           this.nextToken();
           left = init;
@@ -2261,7 +2265,7 @@ const Parser = /** @class */ (function () {
         } else {
           init = this.finalize(
             init,
-            new Node.VariableDeclaration(declarations, "let")
+            new Node.VariableDeclaration(declarations, "var")
           );
           this.expect(";");
         }
@@ -2675,7 +2679,7 @@ const Parser = /** @class */ (function () {
           case "try":
             statement = this.parseTryStatement();
             break;
-          case "let":
+          case "var":
             statement = this.parseVariableStatement();
             break;
           case "while":
@@ -3135,6 +3139,9 @@ const Parser = /** @class */ (function () {
       computed = this.match("[");
       key = this.parseObjectPropertyKey();
       let id = key;
+      if (!id) {
+        console.log(id);
+      }
       if (
         id.name === "static" &&
         (this.qualifiedPropertyName(this.lookahead) || this.match("*"))
@@ -3528,7 +3535,7 @@ const Parser = /** @class */ (function () {
         case "const":
           declaration = this.parseLexicalDeclaration({ inFor: false });
           break;
-        case "let":
+        case "var":
         case "class":
         case "function":
           declaration = this.parseStatementListItem();
