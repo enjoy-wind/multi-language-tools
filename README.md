@@ -3,7 +3,7 @@
 Function, performance, experience one-stop multi-language script.
 
 #Usage
-![Alt Text](https://imgur.com/a/k6wd4bf)
+![Alt Text](https://i.imgur.com/mg1FLCV.gif)
 
 # Currently, nested template strings are not supported.
 
