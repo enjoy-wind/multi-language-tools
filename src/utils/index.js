@@ -33,10 +33,16 @@ const createEnum = (definition) => {
  * @return true 中文 || false 不包含中文
  * */
 const checkChinese = (str) => {
-  if (escape(str).indexOf("%u") < 0) {
-    return false;
-  } else {
+  /*过滤中文字符*/
+  str = str
+    .split("")
+    .filter((char) => /\p{Script=Han}/u.test(char))
+    .join("");
+  const chineseReg = /[\u4e00-\u9fa5]/g;
+  if (chineseReg.test(str)) {
     return true;
+  } else {
+    return false;
   }
 };
 /*

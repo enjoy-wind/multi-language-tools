@@ -89,10 +89,21 @@ const assemblyTransTokens = (transTokens) => {
   });
 };
 
+const getCommonLine = (commonKeyPath) => {
+  let commonCacheLines = [];
+  return function () {
+    if (commonCacheLines.length) {
+      return commonCacheLines;
+    } else {
+      commonCacheLines = readFileSync(commonKeyPath);
+    }
+  };
+};
+
 /*发现历史Key*/
 const findHistoryKey = (transValue) => {
   const { commonKeyPath } = combineConfig;
-  const lines = readFileSync(commonKeyPath);
+  const lines = getCommonLine(commonKeyPath)();
   let findKey = "";
   for (const index in lines) {
     const line = lines[index];
@@ -134,7 +145,7 @@ const autoGeneratorKey = (item) => {
 const getModuleName = (pathName) => {
   let moduleName = pathName.split("/").pop().replace(".js", "");
   const rootPath = "src/";
-  if (pathName.includes()) {
+  if (pathName) {
     const rootPaths = pathName.split(rootPath)[1].split("/");
     const rootPathsLen = rootPaths.length;
     moduleName = rootPaths[[1, 2, 3].includes(rootPathsLen) ? 0 : 1];

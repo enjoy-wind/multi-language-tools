@@ -7,9 +7,16 @@ const EncodingFormat = "utf-8";
  * @params parentPath
  * @fileTypes 小写
  * */
-const getChildFilesPath = (parentPath, fileTypes = ["js"]) => {
+const getChildFilesPath = (
+  parentPath,
+  excludedPaths = [],
+  fileTypes = ["js"]
+) => {
   let fileList = [];
   parentPath = path.resolve(parentPath);
+  if (excludedPaths.includes(parentPath)) {
+    return [];
+  }
   const files = fs.readdirSync(parentPath);
   files &&
     files.forEach((fileName) => {
@@ -20,10 +27,14 @@ const getChildFilesPath = (parentPath, fileTypes = ["js"]) => {
       if (isFile) {
         const fileExtension = fileName.split(".").pop().toLowerCase();
         if (fileTypes.includes(fileExtension)) {
-          fileList.push(fileDir);
+          if (!excludedPaths.includes(fileDir)) {
+            fileList.push(fileDir);
+          }
         }
       } else if (isDir) {
-        fileList = fileList.concat(getChildFilesPath(fileDir, fileTypes));
+        fileList = fileList.concat(
+          getChildFilesPath(fileDir, excludedPaths, fileTypes)
+        );
       }
     });
   return fileList;

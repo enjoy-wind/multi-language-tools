@@ -199,6 +199,24 @@ const Parser = /** @class */ (function () {
     //console.log(token);
     return token;
   };
+  /*测试log检查*/
+  Parser.prototype.testLogCheck = function () {
+    const tokensLen = this.tokens.length;
+    const startSite = tokensLen > 6 ? tokensLen - 6 : 0;
+    const aboveTokensValue = this.tokens
+      .slice(startSite, tokensLen)
+      .map((item) => item.value);
+    if (aboveTokensValue.join("").includes("console.")) {
+      return true;
+    }
+    return false;
+  };
+  Parser.prototype.setTranslationTokens = function (token) {
+    if (this.testLogCheck()) {
+      return;
+    }
+    this.transTokens.push(token);
+  };
   Parser.prototype.getTranslationTokens = function (token) {
     const { JSXText } = JSXSyntax;
     const chineseTypes = [
@@ -213,11 +231,11 @@ const Parser = /** @class */ (function () {
         if (TokenName[TokenType.Template] === type || this.templateRuning) {
           const compositionToken = this.templateTokenComposition(token);
           if (compositionToken) {
-            this.transTokens.push(compositionToken);
+            this.setTranslationTokens(compositionToken);
           }
         } else {
           if (checkChinese(value)) {
-            this.transTokens.push(token);
+            this.setTranslationTokens(token);
           }
         }
       }
@@ -3150,12 +3168,32 @@ const Parser = /** @class */ (function () {
     let nextTokens = [];
     for (let i = 0; i < number; i++) {
       nextTokens.push(this.nextToken());
+      this.tokens.pop();
     }
     Object.assign(this.lookahead, lookahead);
     Object.assign(this.startMarker, startMarker);
     Object.assign(this.lastMarker, lastMarker);
     Object.assign(this.scanner, currentInfo);
+
     return nextTokens;
+  };
+  /*class判断*/
+  Parser.prototype.classVariableCheck = function () {
+    const nextTokenTmp = this.informalNextTokens(3);
+    const commonIdentifiers = [TokenType.Punctuator, TokenType.Identifier];
+    if (nextTokenTmp[1].value == "=") {
+      return true;
+    }
+    const objStart =
+      commonIdentifiers.includes(nextTokenTmp[2].type) &&
+      ["{", "["].includes(nextTokenTmp[2].value);
+    if (
+      nextTokenTmp[1].value == "=" &&
+      (!commonIdentifiers.includes(nextTokenTmp[2].type) || objStart)
+    ) {
+      return true;
+    }
+    return false;
   };
   // https://tc39.github.io/ecma262/#sec-class-definitions
   Parser.prototype.parseClassElement = function (hasConstructor) {
@@ -3172,6 +3210,15 @@ const Parser = /** @class */ (function () {
     if (this.match("*")) {
       this.nextToken();
     } else {
+      if (this.classVariableCheck()) {
+        kind = "const";
+        let declarations = this.parseBindingList(kind, { inFor: false });
+        this.consumeSemicolon();
+        return this.finalize(
+          node,
+          new Node.VariableDeclaration(declarations, kind)
+        );
+      }
       computed = this.match("[");
       key = this.parseObjectPropertyKey();
       let id = key;
@@ -3241,29 +3288,16 @@ const Parser = /** @class */ (function () {
     }
     if ((!kind && key && this.match("(")) || this.match("=")) {
       if (this.match("=")) {
-        const nextTokenTmp = this.informalNextTokens(2);
-        const objStart =
-          TokenType.Punctuator == nextTokenTmp[1].type &&
-          ["{", "["].includes(nextTokenTmp[1].value);
-        if (
-          nextTokenTmp[0].value == "=" &&
-          (TokenType.Punctuator != nextTokenTmp[1].type || objStart)
-        ) {
-          kind = "var";
-        } else {
-          this.nextToken();
-        }
+        this.nextToken();
       }
-      if (kind != "set") {
-        let previousInClassConstructor = this.context.inClassConstructor;
-        this.context.inClassConstructor = token.value === "constructor";
-        kind = "init";
-        value = isAsync
-          ? this.parsePropertyMethodAsyncFunction(isGenerator)
-          : this.parsePropertyMethodFunction(isGenerator);
-        this.context.inClassConstructor = previousInClassConstructor;
-        method = true;
-      }
+      let previousInClassConstructor = this.context.inClassConstructor;
+      this.context.inClassConstructor = token.value === "constructor";
+      kind = "init";
+      value = isAsync
+        ? this.parsePropertyMethodAsyncFunction(isGenerator)
+        : this.parsePropertyMethodFunction(isGenerator);
+      this.context.inClassConstructor = previousInClassConstructor;
+      method = true;
     }
     if (kind === "init") {
       kind = "method";
@@ -3282,7 +3316,7 @@ const Parser = /** @class */ (function () {
       }
     }
     if (kind == "var") {
-      return this.parseStatement();
+      return this.parseLexicalDeclaration({ inFor: false });
     }
     return this.finalize(
       node,
@@ -3379,6 +3413,7 @@ const Parser = /** @class */ (function () {
       const { type, value, loc } = item;
       item.fileName = fileName;
       item.line = loc.start.line;
+      item.range = [loc.start.column, loc.end.column];
       if (type === TokenName[TokenType.Template]) {
         const placeHolders = [...value.matchAll(/\${.*?}/g)];
         let transValue = value;
