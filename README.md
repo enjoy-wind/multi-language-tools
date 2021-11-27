@@ -1,5 +1,9 @@
 # multi-language
-  Function, performance, experience one-stop multi-language script.
+
+Function, performance, experience one-stop multi-language script.
+
+#Usage
+![Alt Text](https://imgur.com/a/k6wd4bf)
 
 # Currently, nested template strings are not supported.
 
