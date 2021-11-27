@@ -145,7 +145,7 @@ const autoGeneratorKey = (item) => {
 const getModuleName = (pathName) => {
   let moduleName = pathName.split("/").pop().replace(".js", "");
   const rootPath = "src/";
-  if (pathName) {
+  if (pathName.includes("/")) {
     const rootPaths = pathName.split(rootPath)[1].split("/");
     const rootPathsLen = rootPaths.length;
     moduleName = rootPaths[[1, 2, 3].includes(rootPathsLen) ? 0 : 1];

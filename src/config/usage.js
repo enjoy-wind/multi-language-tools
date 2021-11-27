@@ -1,11 +1,11 @@
 export default {
-  version: "1.0.0",
+  version: "1.0.1",
   entryPath:
     "/Users/ylhong/Desktop/project/study/multi-language-tools/test/generator/src",
   frameType: "react", //小写
   importModuleCodeStr: "",
   commonKeyPath:
-    "/Users/ylhong/Desktop/project/study/multi-language-tools/test/generator/src/static/i18n/zh_CN/index2.json",
+    "/Users/ylhong/Desktop/project/study/multi-language-tools/test/generator/common.json",
   transFnStr:
     "this.messages($KeyPlaceholder$ArgPlaceholder)/*$NotePlaceholder*/",
   googleTranslation: true,
