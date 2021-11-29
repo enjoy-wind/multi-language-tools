@@ -161,10 +161,9 @@ const transLineObj = (line) => {
   let lineObj = {};
   const keyReg = /\".*?\"/;
   lineObj.key = (line.match(keyReg) || [{ 0: "" }])[0];
-  const labelWeeds = line.split('": ');
-  /*防止空指针*/
-  labelWeeds.push("");
-  lineObj.label = labelWeeds[1];
+  const contentReg = /\":.*"/;
+  let labelWeeds = line.match(contentReg) || [""];
+  lineObj.label = labelWeeds[0].replace('":', "").trim();
   return lineObj;
 };
 /*移除标识符前缀*/

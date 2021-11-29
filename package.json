@@ -1,6 +1,6 @@
 {
   "name": "multi-language-tools",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "function, performance, experience one-stop multi-language script.",
   "main": "index.js",
   "type": "module",
