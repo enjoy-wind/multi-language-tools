@@ -1,11 +1,11 @@
 export default {
   version: "1.0.1",
-  entryPath:
-    "/Users/ylhong/Desktop/project/study/multi-language-tools/test/generator/src",
+  projectPath: "/Users/ylhong/Desktop/project/study/multi-language-tools",
+  entryPath: "/test/generator/src",
   frameType: "react", //小写
   importModuleCodeStr: "",
-  commonKeyPath:
-    "/Users/ylhong/Desktop/project/study/multi-language-tools/test/generator/common.json",
+  commonKeyPath: "/test/generator/common.json",
+  moduleKeyPath: "/test/generator/module.json",
   transFnStr:
     "this.messages($KeyPlaceholder$ArgPlaceholder)/*$NotePlaceholder*/",
   googleTranslation: true,

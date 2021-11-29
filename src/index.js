@@ -12,8 +12,11 @@ import { readFileSync } from "./stream/index.js";
 const start = (config = {}, callBackHooks) => {
   init().then((res) => {
     Object.assign(combineConfig, config);
-    const { entryPath, excludedPaths } = combineConfig;
-    const fileList = getChildFilesPath(entryPath, excludedPaths);
+    const { projectPath, entryPath, excludedPaths } = combineConfig;
+    excludedPaths.forEach((item, index) => {
+      excludedPaths[index] = projectPath + item;
+    });
+    const fileList = getChildFilesPath(projectPath + entryPath, excludedPaths);
     let tokens = [];
     fileList.forEach((item, index) => {
       const code = readFileSync(item);

@@ -72,4 +72,4 @@ const writeFileSync = (filePath, contents) => {
   return true;
 };
 
-export { getChildFilesPath, readFileSync };
+export { getChildFilesPath, readFileSync, readFileSyncToLines };
