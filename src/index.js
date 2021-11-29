@@ -12,11 +12,22 @@ import { readFileSync } from "./stream/index.js";
 const start = (config = {}, callBackHooks) => {
   init().then((res) => {
     Object.assign(combineConfig, config);
-    const { projectPath, entryPath, excludedPaths } = combineConfig;
+    const { projectPath, entryPaths, excludedPaths } = combineConfig;
+    entryPaths.forEach((item, index) => {
+      entryPaths[index] = projectPath + item;
+    });
     excludedPaths.forEach((item, index) => {
       excludedPaths[index] = projectPath + item;
     });
-    const fileList = getChildFilesPath(projectPath + entryPath, excludedPaths);
+    let fileList = [];
+    entryPaths.forEach((entryPath) => {
+      const fileExtension = entryPath.split(".").pop().toLowerCase();
+      if (fileExtension === "js") {
+        fileList.push(entryPath);
+      } else {
+        fileList = fileList.concat(getChildFilesPath(entryPath, excludedPaths));
+      }
+    });
     let tokens = [];
     fileList.forEach((item, index) => {
       const code = readFileSync(item);
@@ -43,6 +54,4 @@ const init = () => {
     }, 10);
   });
 };
-start();
-
 export { start };

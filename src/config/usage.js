@@ -1,7 +1,7 @@
 export default {
   version: "1.0.1",
   projectPath: "/Users/ylhong/Desktop/project/study/multi-language-tools",
-  entryPath: "/test/generator/src",
+  entryPaths: ["/test/generator", "/src/index.js"],
   frameType: "react", //小写
   importModuleCodeStr: "",
   commonKeyPath: "/test/generator/common.json",
