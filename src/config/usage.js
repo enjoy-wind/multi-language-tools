@@ -1,5 +1,5 @@
 export default {
-  version: "1.0.1",
+  version: "1.0.4",
   projectPath: "/Users/ylhong/Desktop/project/study/multi-language-tools",
   entryPaths: [],
   frameType: "react", //小写
