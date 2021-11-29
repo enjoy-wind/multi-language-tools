@@ -12,7 +12,7 @@ let transitionPath = "";
 if (!runPath.includes(projectName)) {
   for (let i = 0; i < 4; i++) {
     const files = fs.readdirSync(runPath);
-    if (!files.includes("node_modules")) {
+    if (files.includes("node_modules")) {
       break;
     }
     const pathList = runPath.split("/");
