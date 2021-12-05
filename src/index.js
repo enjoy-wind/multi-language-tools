@@ -35,7 +35,7 @@ const start = (config = {}, callBackHooks) => {
     });
     generator(tokens).then((fullTokens) => {
       console.log(fullTokens);
-      projectIntegrationHooks(fullTokens);
+      //projectIntegrationHooks(fullTokens);
       if (callBackHooks) {
         callBackHooks(fullTokens);
       }

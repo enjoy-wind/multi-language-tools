@@ -16,5 +16,6 @@ class test {
     return <div>JSX测试</div>;
   }
 }
+
 //注释测试
 console.warn("洪");

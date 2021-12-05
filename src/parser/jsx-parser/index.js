@@ -314,10 +314,24 @@ const JSXParser = /** @class */ (function (_super) {
     this.lastMarker.line = this.scanner.lineNumber;
     this.lastMarker.column = this.scanner.index - this.scanner.lineStart;
     if (this.config.tokens) {
-      const tokenTmp = this.convertToken(token);
+      const tokenTmp = this.transJSXText(this.convertToken(token));
       this.getTranslationTokens(tokenTmp);
       this.tokens.push(tokenTmp);
     }
+    return token;
+  };
+  JSXParser.prototype.transJSXText = function (token) {
+    token.originValue = token.value;
+    const newlineChar = "\n";
+    const spaceChar = " ";
+    const realSpaceChar = "&nbsp;";
+    const newlineCharReg = new RegExp(newlineChar, "g");
+    const spaceCharReg = new RegExp(spaceChar, "g");
+    const realSpaceCharReg = new RegExp(realSpaceChar, "g");
+    token.value = token.value
+      .replace(newlineCharReg, "")
+      .replace(spaceCharReg, "")
+      .replace(realSpaceCharReg, " ");
     return token;
   };
   JSXParser.prototype.nextJSXText = function () {
@@ -353,7 +367,7 @@ const JSXParser = /** @class */ (function (_super) {
       end: this.scanner.index,
     };
     if (text.length > 0 && this.config.tokens) {
-      const tokenTmp = this.convertToken(token);
+      const tokenTmp = this.transJSXText(this.convertToken(token));
       this.getTranslationTokens(tokenTmp);
       this.tokens.push(tokenTmp);
     }

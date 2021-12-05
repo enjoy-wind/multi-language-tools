@@ -112,7 +112,10 @@ const getKeyFileReplace = (item) => {
     .replace(argPlaceholder, getArgs(placeHolderVars))
     .replace(notePlaceholder, removeIdentifiers(transValue));
   if (type === JSXSyntax.JSXText) {
-    item.keyFileReplace = `{${item.keyFileReplace}}`;
+    item.keyFileReplace = item.originValue.replace(
+      item.transValue,
+      `{${item.keyFileReplace}}`
+    );
   }
 };
 
