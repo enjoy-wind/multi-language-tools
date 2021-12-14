@@ -1,0 +1,43 @@
+<application>
+  <component name="PluginSettings">
+    <option name="searchEngines">
+      <list>
+        <SearchEngine>
+          <option name="name" value="_Google" />
+          <option name="url" value="https://www.google.com/search?q=#" />
+          <option name="queryPlaceholder" value="#" />
+        </SearchEngine>
+        <SearchEngine>
+          <option name="name" value="Git_hub" />
+          <option name="url" value="https://github.com/search?q=#" />
+          <option name="queryPlaceholder" value="#" />
+        </SearchEngine>
+        <SearchEngine>
+          <option name="name" value="_SearchCode" />
+          <option name="url" value="https://searchcode.com/?q=#" />
+          <option name="queryPlaceholder" value="#" />
+        </SearchEngine>
+        <SearchEngine>
+          <option name="name" value="G_repCode" />
+          <option name="url" value="http://grepcode.com/search/?query=#" />
+          <option name="queryPlaceholder" value="#" />
+        </SearchEngine>
+        <SearchEngine>
+          <option name="name" value="_CppReference" />
+          <option name="url" value="http://en.cppreference.com/mwiki/index.php?search=#" />
+          <option name="queryPlaceholder" value="#" />
+        </SearchEngine>
+        <SearchEngine>
+          <option name="name" value="C_Make" />
+          <option name="url" value="https://cmake.org/cmake/help/latest/search.html?q=#" />
+          <option name="queryPlaceholder" value="#" />
+        </SearchEngine>
+        <SearchEngine>
+          <option name="name" value="Codelf" />
+          <option name="url" value="https://unbug.github.io/codelf/#%S" />
+          <option name="queryPlaceholder" value="%S" />
+        </SearchEngine>
+      </list>
+    </option>
+  </component>
+</application>
