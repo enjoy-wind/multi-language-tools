@@ -1,18 +1,19 @@
 <application>
-  <component name="FileTypeManager" version="17">
+  <component name="FileTypeManager" version="18">
     <extensionMap>
-      <mapping pattern="test" type="PLAIN_TEXT" />
+      <mapping pattern="test12" type="PLAIN_TEXT" />
       <mapping pattern="test33" type="PLAIN_TEXT" />
       <mapping pattern="test123" type="PLAIN_TEXT" />
-      <mapping pattern="test-abc" type="PLAIN_TEXT" />
+      <mapping pattern="test" type="PLAIN_TEXT" />
       <mapping pattern="test23" type="PLAIN_TEXT" />
+      <mapping pattern="test-abc" type="PLAIN_TEXT" />
       <mapping pattern="sub-task" type="PLAIN_TEXT" />
-      <mapping pattern="test12" type="PLAIN_TEXT" />
-      <mapping ext="text" type="PLAIN_TEXT" />
+      <mapping ext="jis" type="PLAIN_TEXT" />
       <mapping ext="gz" type="PLAIN_TEXT" />
       <mapping ext="webp" type="PLAIN_TEXT" />
-      <mapping ext="jis" type="PLAIN_TEXT" />
+      <mapping ext="text" type="PLAIN_TEXT" />
       <mapping pattern="Currency" type="TypeScript" />
+      <removed_mapping ext="webp" approved="true" type="Image" />
     </extensionMap>
   </component>
 </application>

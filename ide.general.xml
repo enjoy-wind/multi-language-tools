@@ -4,6 +4,7 @@
   </component>
   <component name="Registry">
     <entry key="js.debugger.webconsole" value="false" />
+    <entry key="eslint.additional.file.extensions" value="svelte" />
   </component>
   <component name="StatusBar">
     <option name="widgets">
