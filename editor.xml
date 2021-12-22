@@ -1,5 +1,6 @@
 <application>
   <component name="EditorSettings">
     <option name="USE_SOFT_WRAPS" value="PREVIEW" />
+    <option name="ENABLE_RENDERED_DOC" value="true" />
   </component>
 </application>
