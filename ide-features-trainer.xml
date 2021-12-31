@@ -1,0 +1,20 @@
+<application>
+  <component name="LearnProjectState">
+    <option name="firstTimeOpenedWay" value="LEARN_IDE" />
+  </component>
+  <component name="LessonStateBase">
+    <option name="map">
+      <map>
+        <entry key="before debugging: run/debug configurations" value="NOT_PASSED" />
+        <entry key="code editing tips and tricks" value="NOT_PASSED" />
+        <entry key="debugging code. part i" value="NOT_PASSED" />
+        <entry key="debugging code. part ii" value="NOT_PASSED" />
+        <entry key="fundamentals of testing in webstorm" value="NOT_PASSED" />
+        <entry key="refactorings in a nutshell" value="NOT_PASSED" />
+        <entry key="secrets of efficient navigation" value="NOT_PASSED" />
+        <entry key="the nuts and bolts of code completion" value="NOT_PASSED" />
+        <entry key="the power of code inspections" value="NOT_PASSED" />
+      </map>
+    </option>
+  </component>
+</application>
