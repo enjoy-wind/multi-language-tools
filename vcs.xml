@@ -1,4 +1,14 @@
 <application>
+  <component name="GitRememberedInputs">
+    <option name="visitedUrls">
+      <list>
+        <UrlAndUserName>
+          <option name="url" value="http://coding.jd.com" />
+          <option name="userName" value="org.hongyanglin1" />
+        </UrlAndUserName>
+      </list>
+    </option>
+  </component>
   <component name="Vcs.Log.App.Settings">
     <option name="SHOW_CHANGES_FROM_PARENTS" value="true" />
     <option name="COLUMN_ID_ORDER">
