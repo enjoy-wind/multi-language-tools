@@ -7,8 +7,10 @@
       <mapping pattern="test123" type="PLAIN_TEXT" />
       <mapping pattern="test" type="PLAIN_TEXT" />
       <mapping pattern="test23" type="PLAIN_TEXT" />
+      <mapping pattern=".env.uat" type="PLAIN_TEXT" />
       <mapping pattern="test-abc" type="PLAIN_TEXT" />
       <mapping pattern="sub-task" type="PLAIN_TEXT" />
+      <mapping pattern=".env.production" type="PLAIN_TEXT" />
       <mapping ext="jis" type="PLAIN_TEXT" />
       <mapping ext="gz" type="PLAIN_TEXT" />
       <mapping ext="cshtml" type="PLAIN_TEXT" />
