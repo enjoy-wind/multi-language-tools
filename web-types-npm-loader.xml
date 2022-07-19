@@ -28,6 +28,21 @@
       <version value="1.0.0-rc.1.2" url="https://registry.npmjs.org/@web-types/quasar/-/quasar-1.0.0-rc.1.2.tgz" />
       <version value="1.0.0-1" url="https://registry.npmjs.org/@web-types/quasar/-/quasar-1.0.0-1.tgz" />
     </package>
+    <package name="@web-types/quasar-framework">
+      <version value="0.17.19-3" url="https://registry.npmjs.org/@web-types/quasar-framework/-/quasar-framework-0.17.19-3.tgz" />
+      <version value="0.17.18-3" url="https://registry.npmjs.org/@web-types/quasar-framework/-/quasar-framework-0.17.18-3.tgz" />
+      <version value="0.17.17-3" url="https://registry.npmjs.org/@web-types/quasar-framework/-/quasar-framework-0.17.17-3.tgz" />
+      <version value="0.17.16-3" url="https://registry.npmjs.org/@web-types/quasar-framework/-/quasar-framework-0.17.16-3.tgz" />
+      <version value="0.17.15-3" url="https://registry.npmjs.org/@web-types/quasar-framework/-/quasar-framework-0.17.15-3.tgz" />
+      <version value="0.17.13-3" url="https://registry.npmjs.org/@web-types/quasar-framework/-/quasar-framework-0.17.13-3.tgz" />
+      <version value="0.17.11-3" url="https://registry.npmjs.org/@web-types/quasar-framework/-/quasar-framework-0.17.11-3.tgz" />
+      <version value="0.17.10-3" url="https://registry.npmjs.org/@web-types/quasar-framework/-/quasar-framework-0.17.10-3.tgz" />
+      <version value="0.17.9-3" url="https://registry.npmjs.org/@web-types/quasar-framework/-/quasar-framework-0.17.9-3.tgz" />
+      <version value="0.17.7-3" url="https://registry.npmjs.org/@web-types/quasar-framework/-/quasar-framework-0.17.7-3.tgz" />
+      <version value="0.17.6-3" url="https://registry.npmjs.org/@web-types/quasar-framework/-/quasar-framework-0.17.6-3.tgz" />
+      <version value="0.17.5-3" url="https://registry.npmjs.org/@web-types/quasar-framework/-/quasar-framework-0.17.5-3.tgz" />
+      <version value="0.17.0-3" url="https://registry.npmjs.org/@web-types/quasar-framework/-/quasar-framework-0.17.0-3.tgz" />
+    </package>
     <package name="@web-types/vue">
       <version value="3.0.0-1" url="https://registry.npmjs.org/@web-types/vue/-/vue-3.0.0-1.tgz" />
       <version value="2.5.0-4" url="https://registry.npmjs.org/@web-types/vue/-/vue-2.5.0-4.tgz" />
