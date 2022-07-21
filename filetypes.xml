@@ -12,6 +12,7 @@
       <mapping pattern="sub-task" type="PLAIN_TEXT" />
       <mapping pattern=".env.production" type="PLAIN_TEXT" />
       <mapping ext="jis" type="PLAIN_TEXT" />
+      <mapping ext="types" type="PLAIN_TEXT" />
       <mapping ext="gz" type="PLAIN_TEXT" />
       <mapping ext="cshtml" type="PLAIN_TEXT" />
       <mapping ext="webp" type="PLAIN_TEXT" />
