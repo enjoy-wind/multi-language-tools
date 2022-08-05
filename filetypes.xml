@@ -5,6 +5,7 @@
       <mapping pattern="myIndictors.js" type="AUTO_DETECTED" />
       <mapping pattern="test12" type="PLAIN_TEXT" />
       <mapping pattern="test33" type="PLAIN_TEXT" />
+      <mapping pattern=".prettierignore" type="PLAIN_TEXT" />
       <mapping pattern="test123" type="PLAIN_TEXT" />
       <mapping pattern="test" type="PLAIN_TEXT" />
       <mapping pattern="test23" type="PLAIN_TEXT" />
