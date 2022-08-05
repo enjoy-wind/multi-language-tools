@@ -4,15 +4,16 @@
       <mapping pattern="index" type="AUTO_DETECTED" />
       <mapping pattern="myIndictors.js" type="AUTO_DETECTED" />
       <mapping pattern="test12" type="PLAIN_TEXT" />
-      <mapping pattern="test33" type="PLAIN_TEXT" />
       <mapping pattern=".prettierignore" type="PLAIN_TEXT" />
-      <mapping pattern="test123" type="PLAIN_TEXT" />
       <mapping pattern="test" type="PLAIN_TEXT" />
-      <mapping pattern="test23" type="PLAIN_TEXT" />
-      <mapping pattern=".env.uat" type="PLAIN_TEXT" />
       <mapping pattern="test-abc" type="PLAIN_TEXT" />
       <mapping pattern="sub-task" type="PLAIN_TEXT" />
       <mapping pattern=".env.production" type="PLAIN_TEXT" />
+      <mapping pattern="test33" type="PLAIN_TEXT" />
+      <mapping pattern="test123" type="PLAIN_TEXT" />
+      <mapping pattern="test23" type="PLAIN_TEXT" />
+      <mapping pattern=".env" type="PLAIN_TEXT" />
+      <mapping pattern=".env.uat" type="PLAIN_TEXT" />
       <mapping ext="jis" type="PLAIN_TEXT" />
       <mapping ext="types" type="PLAIN_TEXT" />
       <mapping ext="gz" type="PLAIN_TEXT" />
