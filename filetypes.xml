@@ -1,6 +1,7 @@
 <application>
   <component name="FileTypeManager" version="18">
     <extensionMap>
+      <mapping pattern="tmp" type="AUTO_DETECTED" />
       <mapping pattern="index" type="AUTO_DETECTED" />
       <mapping pattern="myIndictors.js" type="AUTO_DETECTED" />
       <mapping pattern="math" type="AUTO_DETECTED" />
