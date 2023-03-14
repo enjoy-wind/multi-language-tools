@@ -22,6 +22,7 @@
       <mapping pattern=".env.uat" type="PLAIN_TEXT" />
       <mapping ext="jis" type="PLAIN_TEXT" />
       <mapping ext="types" type="PLAIN_TEXT" />
+      <mapping ext="hprof" type="PLAIN_TEXT" />
       <mapping ext="py" type="PLAIN_TEXT" />
       <mapping ext="gz" type="PLAIN_TEXT" />
       <mapping ext="cshtml" type="PLAIN_TEXT" />
