@@ -21,6 +21,7 @@
       <mapping pattern="test23" type="PLAIN_TEXT" />
       <mapping pattern=".env" type="PLAIN_TEXT" />
       <mapping pattern=".env.uat" type="PLAIN_TEXT" />
+      <mapping ext="plist" type="PLAIN_TEXT" />
       <mapping ext="jis" type="PLAIN_TEXT" />
       <mapping ext="types" type="PLAIN_TEXT" />
       <mapping ext="hprof" type="PLAIN_TEXT" />
