@@ -29,6 +29,7 @@
       <mapping ext="gz" type="PLAIN_TEXT" />
       <mapping ext="cshtml" type="PLAIN_TEXT" />
       <mapping ext="webp" type="PLAIN_TEXT" />
+      <mapping ext="tgz" type="PLAIN_TEXT" />
       <mapping ext="cfs" type="PLAIN_TEXT" />
       <mapping ext="text" type="PLAIN_TEXT" />
       <mapping pattern="Currency" type="TypeScript" />
