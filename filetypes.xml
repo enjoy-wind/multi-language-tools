@@ -9,6 +9,7 @@
       <mapping pattern="directive" type="AUTO_DETECTED" />
       <mapping pattern="dialogDrag.js" type="AUTO_DETECTED" />
       <mapping pattern="test3" type="AUTO_DETECTED" />
+      <mapping ext="mp4" type="AUTO_DETECTED" />
       <mapping pattern="test12" type="PLAIN_TEXT" />
       <mapping pattern=".prettierignore" type="PLAIN_TEXT" />
       <mapping pattern=".env.gttk" type="PLAIN_TEXT" />
@@ -23,6 +24,7 @@
       <mapping pattern=".env.uat" type="PLAIN_TEXT" />
       <mapping ext="plist" type="PLAIN_TEXT" />
       <mapping ext="jis" type="PLAIN_TEXT" />
+      <mapping ext="m3u8" type="PLAIN_TEXT" />
       <mapping ext="types" type="PLAIN_TEXT" />
       <mapping ext="hprof" type="PLAIN_TEXT" />
       <mapping ext="py" type="PLAIN_TEXT" />
