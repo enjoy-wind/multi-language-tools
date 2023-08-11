@@ -1,5 +1,5 @@
 <templateSet group="Vue">
-  <template name="vindex" value="&lt;script setup&gt;&#10;&#10;&lt;/script&gt;&#10;&#10;&lt;template&gt;&#10;&#10;&lt;/template&gt;&#10;&#10;&lt;style scoped&gt;&#10;&#10;&lt;/style&gt;" toReformat="true" toShortenFQNames="true">
+  <template name="vindex" value="&lt;script setup&gt;&#10;&#10;&lt;/script&gt;&#10;&#10;&lt;template&gt;&#10;&#10;&lt;/template&gt;&#10;&#10;&lt;style scoped&gt;&#10;&#10;&lt;/style&gt;" description="" toReformat="true" toShortenFQNames="true">
     <context>
       <option name="Vue" value="true" />
     </context>
