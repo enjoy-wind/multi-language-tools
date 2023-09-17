@@ -54,6 +54,9 @@
       <version value="2.0.0-5" url="https://registry.npmjs.org/@web-types/vue/-/vue-2.0.0-5.tgz" />
       <version value="1.0.0-5" url="https://registry.npmjs.org/@web-types/vue/-/vue-1.0.0-5.tgz" />
     </package>
+    <package name="@web-types/vue-client-only">
+      <version value="2.0.0-1" url="https://registry.npmjs.org/@web-types/vue-client-only/-/vue-client-only-2.0.0-1.tgz" />
+    </package>
     <package name="@web-types/vue-no-ssr">
       <version value="1.0.0-1" url="https://registry.npmjs.org/@web-types/vue-no-ssr/-/vue-no-ssr-1.0.0-1.tgz" />
     </package>
