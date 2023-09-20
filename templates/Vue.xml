@@ -4,4 +4,9 @@
       <option name="Vue" value="true" />
     </context>
   </template>
+  <template name="vpageindex" value="&lt;script setup&gt;&#10;&lt;/script&gt;&#10;&lt;route lang=&quot;yaml&quot;&gt;&#10;meta:&#10;  title: &#10;&lt;/route&gt;&#10;&lt;template&gt;&#10;&lt;/template&gt;&#10;&#10;&lt;style scoped&gt;&lt;/style&gt;&#10;" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="Vue" value="true" />
+    </context>
+  </template>
 </templateSet>
