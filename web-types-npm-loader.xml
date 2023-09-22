@@ -114,6 +114,7 @@
       <package name="vue-router" />
       <package name="vuetify" />
       <package name="@nuxt/vue-app" />
+      <package name="lit" />
     </enabled>
   </component>
 </application>
