@@ -6,6 +6,11 @@
           <option name="SHOW_WHITESPACES" value="true" />
         </PlaceSettings>
       </entry>
+      <entry key="Merge">
+        <PlaceSettings>
+          <option name="SHOW_WHITESPACES" value="true" />
+        </PlaceSettings>
+      </entry>
     </option>
   </component>
 </application>
