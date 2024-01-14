@@ -24,6 +24,7 @@
       <mapping pattern="test23" type="PLAIN_TEXT" />
       <mapping pattern=".env" type="PLAIN_TEXT" />
       <mapping pattern=".env.uat" type="PLAIN_TEXT" />
+      <mapping pattern=".browserslistrc" type="PLAIN_TEXT" />
       <mapping ext="plist" type="PLAIN_TEXT" />
       <mapping ext="jis" type="PLAIN_TEXT" />
       <mapping ext="m3u8" type="PLAIN_TEXT" />
